@@ -6,7 +6,7 @@
     <title>EPI-KID Questionnaire</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<script type="module">
+<!-- <script type="module">
   // Import Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
@@ -40,7 +40,7 @@
     });
   }
   window.logout = logout; // so you can call logout() from a button
-</script>
+</script> -->
 
 <body>
     <header>
@@ -127,7 +127,7 @@
                 <option>Always</option>
             </select>
           <br><br>
-<button type="button" id="prev-btn">Previous</button>
+        <button type="button" id="prev-btn">Previous</button>
             <br><br>
             <button type="submit" value="Submit" name="submit">Submit</button>
         </form>
@@ -142,6 +142,9 @@
                 </div>
                 <div class="modal-body" id="thank-you-message">
                     <p>Your data has been successfully submitted.</p>
+                </div>
+                <div>
+                    <button type="submit" id="re-enter" value="Submit" name="submit">New Records</button>
                 </div>
                 <div class="modal-footer" id="download-link">
                     <!-- Download link will be inserted here -->
@@ -233,6 +236,10 @@
 
          document.getElementById('prev-btn').addEventListener('click', () => {
                 window.location.href = 'four.html'; // Redirect to next page
+        });
+
+         document.getElementById('re-enter').addEventListener('click', () => {
+                window.location.href = 'homepages.html'; // Redirect to next page
         });
     </script>
 </body>
