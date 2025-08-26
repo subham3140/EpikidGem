@@ -1,0 +1,125 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+
+.about {
+    width: 100%;
+    padding: 78px 0;
+    background-color: white;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.about img {
+    width: 50%; /* Take up half the container width */
+    height: 400px; /* Maintain aspect ratio */
+    max-width: 100%; /* Ensure image scales down on smaller screens */
+    margin-right: 20px; /* Add spacing between image and text */
+    object-fit: cover; /* Ensure the image scales well */
+}
+
+.about-text {
+    flex: 1; /* Allow the text to take up the remaining space */
+    max-width: 60%; /* Text takes up less width than the image */
+}
+
+.main {
+    width: 1130px;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Space out content */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */}
+
+
+.about-text h1 {
+    color:#191919;
+    font-size: 80px;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+.about-text h5 {
+    color:  #f9004d; 
+    font-size: 25px;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.about-text ul {
+    color:  #4b0082; 
+    letter-spacing: 1px;
+    line-height: 28px;
+    font-size: 18px;
+    margin-bottom: 45px;
+}
+
+span {
+    color: #f9004d;
+}
+
+.about-text p {
+    color:  #4b0082; 
+    letter-spacing: 1px;
+    line-height: 28px;
+    font-size: 18px;
+    margin-bottom: 45px;
+    margin-right: 5px;
+}
+
+button {
+    background: #f9004d;
+    color: black;
+    text-decoration: none;
+    border: 2px solid transparent;
+    font-weight: bold;
+    padding: 13px 30px;
+    border-radius: 30px;
+    transition: background 0.4s ease, border 0.4s ease;
+}
+
+button:hover {
+    background: transparent;
+    border: 2px solid #f9004d;
+    cursor: pointer;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .about-text h1 {
+        font-size: 60px;
+    }
+
+    .about-text h5 {
+        font-size: 20px;
+    }
+
+    .about-text ul,
+    .about-text p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    button {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column; /* Stack image and text vertically */
+        text-align: center; /* Center-align content */
+    }
+
+    .about img {
+        margin: 0 0 20px 0; /* Add spacing below the image */
+    }
+
+    .about-text {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+}

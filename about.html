@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>About Survey Design</title>
+    <link rel="stylesheet" type="text/css" href="abstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvqVRiUSX185tIX5SvJJiugh5C492buRY",
+    authDomain: "epikid-4a22c.firebaseapp.com",
+    projectId: "epikid-4a22c",
+    storageBucket: "epikid-4a22c.firebasestorage.app",
+    messagingSenderId: "243288986692",
+    appId: "1:243288986692:web:491fa390391e8e18319811",
+    measurementId: "G-ZMRYVRL6CF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Check if user is signed in
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Not signed in ¨ redirect to login page
+      window.location.href = "index.html";  
+    }
+  });
+
+  // Optional: logout button
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    });
+  }
+  window.logout = logout; // so you can call logout() from a button
+</script>
+
+<body>
+    <section class="about">
+        <button onclick="logout()">Logout</button>
+        <div class="main">
+            <img src="image.png" alt="Questionnaire Illustration">
+            <div class="about-text">
+                <h1>About the Survey</h1>
+                <h5>EPI-KID Questionnaire<span>(Financial Burden of Pediatric Epilepsy)</span></h5>
+                <p>
+                    The economic impact of pediatric epilepsy is multifaceted, encompassing direct medical costs, indirect costs such as productivity loss, 
+                    and intangible costs affecting the quality of life. Utilizing a standardized questionnaire that comprehensively captures these dimensions 
+                    is essential for a holistic economic evaluation. This approach facilitates the identification of cost-effective interventions and resource 
+                    allocation strategies and ensures consistency in data collection across various studies and settings. Such uniformity enables accurate 
+                    comparisons between studies, regions, or populations. The use of a common instrument by researchers and healthcare professionals promotes 
+                    communication and collaboration within the scientific community. Standardized tools further facilitate the sharing of data and findings, 
+                    fostering a more comprehensive understanding of the global economic impact of pediatric epilepsy.
+                </p>
+                <p><strong>Note:</strong></p>
+                <ul>
+                    <li>Your answers will help health policy-makers estimate overall treatment costs for epilepsy.</li>
+                    <li>Please answer each question; if you are unsure, provide the best response you can.</li>
+                    <li>If you encounter difficulty with any question, add a remark adjacent to it.</li>
+                    <li>Your information will be kept entirely confidential and will not affect your therapy.</li>
+                    <li> Specify all costs in your local currency.</li>
+                </ul>
+                <button type="button" onclick="location.href= 'homepages.html'">Continue to the Survey</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPI-KID Questionnaire - Page 3</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvqVRiUSX185tIX5SvJJiugh5C492buRY",
+    authDomain: "epikid-4a22c.firebaseapp.com",
+    projectId: "epikid-4a22c",
+    storageBucket: "epikid-4a22c.firebasestorage.app",
+    messagingSenderId: "243288986692",
+    appId: "1:243288986692:web:491fa390391e8e18319811",
+    measurementId: "G-ZMRYVRL6CF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Check if user is signed in
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Not signed in ¨ redirect to login page
+      window.location.href = "index.html";  
+    }
+  });
+
+  // Optional: logout button
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    });
+  }
+  window.logout = logout; // so you can call logout() from a button
+</script>
+
+<body>
+    <header>
+        <h1>EPI-KID Questionnaire (Financial Burden of Pediatric Epilepsy)</h1>
+        <p>A comprehensive tool to assess the economic impact of pediatric epilepsy</p>
+    </header>
+    <div class="form-container">
+        <form id="page3-form">
+            <h2>DOMAIN 3: DIRECT SOCIAL COST (non-medical)</h2>
+            <h3>A. Travel costs</h3>
+            <div class="checkbox-group">
+                <label><p>1. Where did you travel for your child consultancy (please âœ?)?</p></label><br>
+
+                
+                <label><input type="checkbox" name="travel_location" value="general_practitioner"> General practitioner</label>
+                <label><input type="checkbox" name="travel_location" value="university_hospital"> University hospital</label>
+                <label><input type="checkbox" name="travel_location" value="private_hospital"> Private hospital</label>
+                <label><input type="checkbox" name="travel_location" value="government_hospital"> Government hospital</label>
+                <label><input type="checkbox" name="travel_location" value="other_location"> Other</label><br><br>
+            </div>
+    
+            <label>2. Tick the number that best represents how you traveled the longest part of your trip from home.</label><br>
+            <table>
+                <tr>
+                    <th>Mode</th>
+                    <th>Tick (âœ?)</th>
+                </tr>
+                <tr>
+                    <td>Walking</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="walking"></td>
+                </tr>
+                <tr>
+                    <td>Cycling</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="cycling"></td>
+                </tr>
+                <tr>
+                    <td>Bike</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="bike"></td>
+                </tr>
+                <tr>
+                    <td>Ambulance</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="ambulance"></td>
+                </tr>
+                <tr>
+                    <td>Taxi</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="taxi"></td>
+                </tr>
+                <tr>
+                    <td>Car</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="car"></td>
+                </tr>
+                <tr>
+                    <td>Bus</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="bus"></td>
+                </tr>
+                <tr>
+                    <td>Train</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="train"></td>
+                </tr>
+                <tr>
+                    <td>Flight</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="flight"></td>
+                </tr>
+                <tr>
+                    <td>Other (specify)</td>
+                    <td><input type="checkbox" name="mode_of_travel" value="other"></td>
+                </tr>
+            </table><br><br>
+    
+    <label>3. What were the total travel expenditures for the trip?</label><br>
+    <input type="text" name="total_expenditures" placeholder="Enter amount"><br><br>
+    
+    <label>4. Indicate the distance from your residence to a specific healthcare provider, such as a general practitionerâ€™s office or a hospital clinic. Kindly provide the scale in kilometers.</label><br>
+    <input type="number" name="distance_km" placeholder="Enter distance in kilometers"><br><br>
+    
+    <label>5. How many times in the past 6 months have you taken your child to the healthcare clinic for epilepsy?</label><br>
+    <input type="number" name="visits_in_6_months" placeholder="Enter number of visits"><br><br>
+    </select><br>
+
+
+    <h3>B. Food and Lodging Costs</h3>
+        <p>This section enquires about the cost incurred on food and lodging due to child epilepsy.</p>
+    <label for="bringFood">
+        1. Do you usually bring food from home during healthcare visits?</label><br>
+        <select name="Bring_Food">
+            <option>Yes</option>
+            <option>No</option>
+    </select><br><br>
+    <label for="foodCost">2. If not, then what usually is the average amount spent on food cost?</label><br>
+    <input type="number" id="foodCost" name="food_Cost" placeholder="Enter amount in your currency"><br><br>
+    
+    <label for="stayWithFamily">3. Would you prefer to stay with family or friends when visiting healthcare?</label><br>
+        <select name="stay_with_family_friends">
+            <option>Yes</option>
+            <option>No</option>
+    </select><br><br>
+    
+        <label for="lodgingCost">4. If "not", How much do you spend on lodging when you visit the hospital?</label><br>
+        <input type="number" id="lodgingCost" name="lodging_cost" placeholder="Enter amount in your currency"><br><br>
+    
+     <h3>C. Formal costs (paid workers)</h3>
+        <p>The person who is employed to carry out tasks for you such as bathing and the preparation of meals, tasks that family members or friends.</p>
+    
+        <h4>a. Caregiver Support and Respite Services</h4>
+        <label for="caregiver_Support">1. Have you utilized respite care services (temporary relief for caregivers)?</label><br>
+        <select name="caregiver_Support">
+            <option>Yes</option>
+            <option>No</option>
+        </select><br><br>
+    
+        <label for="respiteCost">2. What was the total out-of-pocket expenditure for these services?</label><br>
+        <input type="text" id="respiteCost" name="respiteCost" placeholder="Enter amount">
+        <br><br>
+    
+        <h4>b. Rehabilitation services costs</h4>
+        <label for="rehabExpenses">1. In the past (6 months), have you incurred any expenses for rehabilitation services (such as physiotherapy, occupational therapy, speech therapy, or behavioral interventions) for your childâ€™s epilepsy, not related to any surgery?</label><br>
+        <select name="rehab">
+            <option>Yes</option>
+            <option>No</option>
+        </select><br><br>
+    
+        <label for="rehabServices">2. Which rehabilitation services were accessed?</label><br>
+        <input type="text" id="rehabServices" name="rehab_services" placeholder="List services">
+        </select><br><br>
+    
+        <label for="rehabFrequency">3. How frequently were these services utilized (per month) for the last 6 months</label><br>
+        <input type="text" id="rehabFrequency" name="rehab_frequency" placeholder="Enter frequency">
+        <br><br>
+    
+        <label for="rehabCost">4. What was the total out-of-pocket expenditure for these services?</label><br>
+        <input type="text" id="rehabCost" name="rehab_cost" placeholder="Enter amount">
+        <br><br>
+    
+        <h4>c. Costs Related to Educational Support</h4>
+        <label for="specialEducation">1. Does your child receive special education services or support at school?</label><br>
+        <select name="special_Education">
+            <option>Yes</option>
+            <option>No</option>
+        </select><br><br>
+    
+        <label for="educationFees">2. If yes, are there any additional fees involved (e.g., special programs, transportation, learning aids)?</label><br>
+        <input type="text" id="educationFees" name="education_Fees" placeholder="Enter details">
+         </select><br><br>
+    
+         <h3>D. Religious Trips/Retreats & Rituals Cost</h3>
+         <p>This section inquires about the cost of spending on religious beliefs and rituals for epilepsy management.</p>
+         
+         <label for="religious_trips">1. Have you done any religious trips or rituals for child treatment?</label><br>
+         <select id="religious_trips" name="religious_trips">
+             <option value="yes">Yes</option>
+             <option value="no">No</option>
+         </select><br><br>
+         
+         <label for="trip_number">2. Please mention the number of religious trips done in the last 12 months for child treatment:</label><br>
+         <input type="number" id="trip_number" name="trip_Number" placeholder="Enter number of trips"><br><br>
+         
+         <label for="trip_cost">3. Kindly mention the average total cost for each religious trip:</label><br>
+         <input type="text" id="trip_cost" name="trip_Cost" placeholder="Enter amount per trip"><br><br>
+         
+         <h3>E. Costs of Assistive Devices</h3>
+         <label for="assistive_devices">1. Have you purchased or rented any assistive devices (e.g., protective helmets, mobility aids) for your childâ€™s epilepsy management in the past 6 months?</label><br>
+         <select id="assistive_devices" name="assistive_devices">
+             <option value="yes">Yes</option>
+             <option value="no">No</option>
+         </select><br><br>
+         
+         <label for="assistive_devices_cost">2. What was the total out-of-pocket expenditure for these assistive devices, including any repairs or replacements?</label><br>
+         <input type="text" id="assistive_devices_cost" name="assistive_devices_cost" placeholder="Enter expenditure"><br><br>
+         <button type="button" id="prev-btn">Previous</button>
+          <br><br>
+         <button type="button" id="next-btn">Continue</button>
+        </form>
+    </div>
+
+    <script>
+        // Save page 3 data to localStorage
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const form = document.getElementById('page3-form');
+            const formData = Object.fromEntries(new FormData(form).entries());
+
+            // Validate numeric fields
+            const numericFields = ['total_expenditures', 'distance_km', 'visits_in_6_months'];
+            for (const field of numericFields) {
+                if (formData[field] && (isNaN(formData[field]) || formData[field] <= 0)) {
+                    alert(`Please enter a valid positive number for ${field.replace('_', ' ')}`);
+                    return;
+                }
+            }
+
+            // Save current page data
+            localStorage.setItem('page3Data', JSON.stringify(formData));
+
+            // Merge all page data
+            const page1Data = JSON.parse(localStorage.getItem('page1Data')) || {};
+            const page2Data = JSON.parse(localStorage.getItem('page2Data')) || {};
+            const combinedData = { ...page1Data, ...page2Data, ...formData };
+            localStorage.setItem('allData', JSON.stringify(combinedData));
+
+            // Redirect to the next page
+            window.location.href = 'four.html'; // Adjust to your next page
+        });
+
+        // Pre-fill form data if available
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = JSON.parse(localStorage.getItem('page3Data')) || {};
+            for (const [key, value] of Object.entries(savedData)) {
+                const field = document.querySelector(`[name="${key}"]`);
+                if (field) {
+                    if (field.type === 'checkbox' || field.type === 'radio') {
+                        field.checked = value === field.value;
+                    } else {
+                        field.value = value;
+                    }
+                }
+            }
+        });
+
+              // ? Restore saved data when page loads
+    window.addEventListener("DOMContentLoaded", () => {
+        const savedData = localStorage.getItem("page3Data");
+        if (savedData) {
+            const formData = JSON.parse(savedData);
+            Object.keys(formData).forEach(key => {
+                const field = document.querySelector(`[name="${key}"]`);
+                if (field) {
+                    field.value = formData[key];
+                }
+            });
+        }
+    });
+
+         document.getElementById('prev-btn').addEventListener('click', () => {
+                window.location.href = 'two.html'; // Redirect to next page
+        });
+    </script>
+</body>
+</html>

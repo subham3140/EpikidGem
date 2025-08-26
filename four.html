@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPI-KID Questionnaire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvqVRiUSX185tIX5SvJJiugh5C492buRY",
+    authDomain: "epikid-4a22c.firebaseapp.com",
+    projectId: "epikid-4a22c",
+    storageBucket: "epikid-4a22c.firebasestorage.app",
+    messagingSenderId: "243288986692",
+    appId: "1:243288986692:web:491fa390391e8e18319811",
+    measurementId: "G-ZMRYVRL6CF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Check if user is signed in
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Not signed in ¨ redirect to login page
+      window.location.href = "index.html";  
+    }
+  });
+
+  // Optional: logout button
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    });
+  }
+  window.logout = logout; // so you can call logout() from a button
+</script>
+
+<body>
+    <header>
+        <h1>EPI-KID Questionnaire (Financial Burden of Pediatric Epilepsy)</h1>
+        <p>A comprehensive tool to assess the economic impact of pediatric epilepsy</p>
+    </header>
+    <div class="form-container">
+        <form id="page4-form">
+            <h2>DOMAIN 4: INDIRECT COSTS (Caregiving, Productivity Losses, Absenteeism)</h2>
+            <h3> A. Parent Productivity Losses </h3>
+            <h4> a. Job Absenteeism & Adjustments </h4>
+            <label> 1. In the past 6 months, how many days of work have you missed due to child illness?</label><br>
+            <input type="number" id="work_missed" name="work_missed" placeholder="Number of days"><br><br>
+        
+            <h4> b. Impact on Income & Career Progression:</h4>
+            <label>1. Did you experience any loss in household income as a result of changing your job or reducing your working hours?</label><br>
+            <select id="loss_in_household_income" name="loss_in_household_income">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+            <label for="foregone_income">2. If "Yes," estimate the amount of lost/foregone income in the past 6 months:</label><br>
+            <input type="number" id="foregone_income" name="foregone_income" placeholder="Amount"><br><br>
+        
+            <h4> c. Unemployment or Early Retirement </h4>
+            <label>1. Did you or your partner stop working entirely or take early retirement due to the need for full-time care for your child?</label><br>
+            <select id="stop_working" name="stop_working">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select><br><br>
+        
+            <label for="member_who_stop_working">2. If "Yes," who stopped working?</label><br>
+            <select id="member_who_stop_working" name="member_who_stop_working">
+                <option value="mother">Mother</option>
+                <option value="father">Father</option>
+                <option value="both">Both</option>
+            </select><br><br>
+        
+            <label for="year_retire">3. How many years earlier than planned did you retire or leave the workforce?</label><br>
+            <input type="number" id="year_retire" name="year_retire" placeholder="Number of years"><br><br>
+        
+            <label for="income_before_retirement">4. What was your approximate annual income before early retirement or leaving your job?</label><br>
+            <input type="number" id="income_before_retirement" name="income_before_retirement" placeholder="Annual income"><br><br>
+        
+            <h3> B. Informal Caregiving Costs</h3>
+            <label for="hour_spend_with_child"> 1. Over the last 6 months, on average, how many hours per month did the caregiver spend assisting your child with epilepsy-related activities?</label><br>
+            <input type="text" id="hour_spend_with_child" name="hour_spend_with_child" placeholder="Hours per month"><br><br>
+        
+            <label for="income_lost_due_to_caregiving"> 2. Please estimate the income lost per month due to caregiving (optional):</label><br>
+            <input type="text" id="income_lost_due_to_caregiving" name="income_lost_due_to_caregiving" placeholder="Income lost per month"><br><br>
+        
+            <h3> C. Government Subsidy</h3>
+            <label for="scheme_name"> 1. In the past 6 months, which government subsidies related to child health have you benefited from?</label><br>
+            <input type="text" id="scheme_name" name="scheme_name" placeholder="Name of the scheme"><br><br>
+        
+            <label for="medical_expenses">2. What type of medical expenses are covered under the subsidy?</label><br>
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>Medical expenses</th>
+                    <th>Tick (âœ?)</th>
+                </tr>
+                <tr>
+                    <td>Medication</td>
+                    <td><input type="checkbox" name="medical_expenses" value="Medication"></td>
+                </tr>
+                <tr>
+                    <td>Medical equipment</td>
+                    <td><input type="checkbox" name="medical_expenses" value="Medical equipment"></td>
+                </tr>
+                <tr>
+                    <td>Therapy services</td>
+                    <td><input type="checkbox" name="medical_expenses" value="Therapy services"></td>
+                </tr>
+            </table><br>
+            <label for="other_expense">Other:</label><br>
+            <input type="text" id="other_expense" name="other_expense" placeholder="Specify other expenses"><br><br>
+
+         <button type="button" id="prev-btn">Previous</button>
+          <br><br>
+            <button type="button" id="next-btn">Continue</button>
+        </form>
+    </div>
+
+    <script>
+        // Toggle visibility of income loss fields
+        function toggleIncomeField() {
+            const lossIncome = document.getElementById('loss_in_household_income').value;
+            document.getElementById('income-loss-fields').style.display = lossIncome === 'yes' ? 'block' : 'none';
+        }
+
+        // Toggle visibility of unemployment fields
+        function toggleUnemploymentFields() {
+            const stopWorking = document.getElementById('stop_working').value;
+            document.getElementById('unemployment-fields').style.display = stopWorking === 'yes' ? 'block' : 'none';
+        }
+
+        // Save form data to localStorage and navigate
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const form = document.getElementById('page4-form');
+            const formData = Object.fromEntries(new FormData(form).entries());
+            localStorage.setItem('page4Data', JSON.stringify(formData));
+            window.location.href = 'five.html'; // Adjust URL
+        });
+
+        // Pre-fill form data if available
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = JSON.parse(localStorage.getItem('page4Data')) || {};
+            for (const [key, value] of Object.entries(savedData)) {
+                const field = document.querySelector(`[name="${key}"]`);
+                if (field) {
+                    if (field.type === 'checkbox' || field.type === 'radio') {
+                        field.checked = value === field.value;
+                    } else {
+                        field.value = value;
+                    }
+                }
+            }
+        });
+
+              // ? Restore saved data when page loads
+    window.addEventListener("DOMContentLoaded", () => {
+        const savedData = localStorage.getItem("page4Data");
+        if (savedData) {
+            const formData = JSON.parse(savedData);
+            Object.keys(formData).forEach(key => {
+                const field = document.querySelector(`[name="${key}"]`);
+                if (field) {
+                    field.value = formData[key];
+                }
+            });
+        }
+    });
+
+         document.getElementById('prev-btn').addEventListener('click', () => {
+                window.location.href = 'three.html'; // Redirect to next page
+        });
+    </script>
+</body>
+</html>

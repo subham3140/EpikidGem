@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPI-KID Questionnaire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvqVRiUSX185tIX5SvJJiugh5C492buRY",
+    authDomain: "epikid-4a22c.firebaseapp.com",
+    projectId: "epikid-4a22c",
+    storageBucket: "epikid-4a22c.firebasestorage.app",
+    messagingSenderId: "243288986692",
+    appId: "1:243288986692:web:491fa390391e8e18319811",
+    measurementId: "G-ZMRYVRL6CF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Check if user is signed in
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Not signed in ¨ redirect to login page
+      window.location.href = "index.html";  
+    }
+  });
+
+  // Optional: logout button
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    });
+  }
+  window.logout = logout; // so you can call logout() from a button
+</script>
+
+<body>
+    <header>
+        <h1>EPI-KID Questionnaire (Financial Burden of Pediatric Epilepsy)</h1>
+        <p>A comprehensive tool to assess the economic impact of pediatric epilepsy</p>
+    </header>
+    <div class="form-container">
+        <form method="POST" name="google-sheet">
+            <h2>DOMAIN 5: INTANGIBLE COMPONENTS</h2>
+            <p>Intangible costs refer to the non-monetary impacts of a medical condition</p>
+
+            <!-- Form Fields for Page 5 -->
+            <h3>A. Psychological distress:</h3><br>
+            <label>1. How often do you feel anxious or worried about your child's epilepsy?</label><br>
+            <select name="Frequency_feel_anxious">
+                <option value="" selected hidden></option>
+                <option>Never</option>
+                <option>Rarely (1-2 times per month)</option>
+                <option>Sometimes (3-5 times per month)</option>
+                <option>Often (6-10 times per month)</option>
+                <option value="very_often">Very often (>10 times per month)</option>
+            </select>
+
+            <label>2. Have you ever felt depressed or hopeless because of your child's condition?</label><br>
+            <select name="Frequency_feel_depressed">
+                <option value="" selected hidden></option>
+                <option>Never</option>
+                <option>Rarely (1-2 times per month)</option>
+                <option>Sometimes (3-5 times per month)</option>
+                <option>Often (6-10 times per month)</option>
+                <option>Very often (>10 times per month)</option>
+            </select>
+
+            <label>3. How often do you feel stressed by your caregiving responsibilities?</label><br>
+            <select name="Frequency_feel_stressed">
+                <option value="" selected hidden></option>
+                <option>Never</option>
+                <option>Rarely (1-2 times per month)</option>
+                <option>Sometimes (3-5 times per month)</option>
+                <option>Often (6-10 times per month)</option>
+                <option>Very often (>10 times per month)</option>
+            </select>
+
+            <h3>B. Loss of quality of life:</h3><br>
+            <label>1. How has your child's epilepsy affected their daily activities and ability to participate in hobbies or sports?</label><br>
+            <select name="affected_daily_activities">
+                <option value="" selected hidden></option>
+                <option>Not at all</option>
+                <option>Rarely</option>
+                <option>Sometimes</option>
+                <option>Often</option>
+                <option>Always</option>
+            </select>
+
+            <label>2. How have your caregiving responsibilities affected your daily activities and ability to participate in hobbies or interests?</label><br>
+            <select name="caregiving_affected_daily_activities">
+                <option value="" selected hidden></option>
+                <option>Not at all</option>
+                <option>Rarely</option>
+                <option>Sometimes</option>
+                <option>Often</option>
+                <option>Always</option>
+            </select>
+
+            <h3>C. Stigma and discrimination:</h3><br>
+            <label>1. Has your child experienced any stigma or discrimination because of the childâ€™s epilepsy?</label><br>
+            <select name="experience_of_stigma">
+                <option value="" selected hidden></option>
+                <option>Not at all</option>
+                <option>Rarely</option>
+                <option>Sometimes</option>
+                <option>Often</option>
+                <option>Always</option>
+            </select>
+
+            <label>2. Have you experienced any stigma or discrimination because of your caregiving responsibilities?</label><br>
+            <select name="stigma_due_to_caregiving">
+                <option value="" selected hidden></option>
+                <option>Not at all</option>
+                <option>Rarely</option>
+                <option>Sometimes</option>
+                <option>Often</option>
+                <option>Always</option>
+            </select>
+          <br><br>
+<button type="button" id="prev-btn">Previous</button>
+            <br><br>
+            <button type="submit" value="Submit" name="submit">Submit</button>
+        </form>
+
+
+        <!-- Modal for Thank You Message and Download Link -->
+        <div id="thankYouModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <div class="modal-header">
+                    <h2>Thank You for Your Submission!</h2>
+                </div>
+                <div class="modal-body" id="thank-you-message">
+                    <p>Your data has been successfully submitted.</p>
+                </div>
+                <div class="modal-footer" id="download-link">
+                    <!-- Download link will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycby69Zj3rTsOL3fvkULDTc5vIpv_JNm8mSDQ6I-3xLQzJ5Im7FAg9Go_9pdmNMXiJc8Emw/exec'
+            const form = document.forms['google-sheet'];
+            const modal = document.getElementById('thankYouModal');
+        const closeModal = document.getElementById('closeModal');
+        const thankYouMessageElement = document.getElementById('thank-you-message');
+        const downloadLinkElement = document.getElementById('download-link');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const page1Data = JSON.parse(localStorage.getItem('page1Data')) || {};
+            const page2Data = JSON.parse(localStorage.getItem('page2Data')) || {};
+            const page3Data = JSON.parse(localStorage.getItem('page3Data')) || {};
+            const page4Data = JSON.parse(localStorage.getItem('page4Data')) || {};
+            const page5Data = Object.fromEntries(new FormData(form).entries());
+
+            const allData = { ...page1Data, ...page2Data, ...page3Data, ...page4Data, ...page5Data };
+
+            const formData = new FormData();
+            Object.keys(allData).forEach(key => formData.append(key, allData[key]));
+
+            try {
+                const response = await fetch(scriptURL, { method: 'POST', body: formData });
+                const data = await response.json();
+
+                if (data.result === 'success') {
+                    form.style.display = 'none'; // Hide form
+
+                    // Show the modal
+                    modal.style.display = 'block';
+
+                    // Show the thank-you message
+                    thankYouMessageElement.innerHTML = `
+                        <p></p>
+                    `;
+
+                    // Show the download link
+                    if (data.downloadUrl) {
+                        downloadLinkElement.innerHTML = `
+                            <p>Click here to download your response: <a href="${data.downloadUrl}" target="_blank">Download response</a></p>
+                        `;
+                    localStorage.clear();
+                    } else {
+                        downloadLinkElement.innerHTML = `<p>Your response has been submitted, but the download link is not available.</p>`;
+                    }
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error!', error);
+                alert('An unexpected error occurred. Please try again later.');
+            }
+        });
+
+        // Close the modal when the user clicks on <span> (x)
+        closeModal.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Close the modal when the user clicks anywhere outside the modal
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+              // ? Restore saved data when page loads
+    window.addEventListener("DOMContentLoaded", () => {
+        const savedData = localStorage.getItem("page5Data");
+        if (savedData) {
+            const formData = JSON.parse(savedData);
+            Object.keys(formData).forEach(key => {
+                const field = document.querySelector(`[name="${key}"]`);
+                if (field) {
+                    field.value = formData[key];
+                }
+            });
+        }
+    });
+
+         document.getElementById('prev-btn').addEventListener('click', () => {
+                window.location.href = 'four.html'; // Redirect to next page
+        });
+    </script>
+</body>
+</html>

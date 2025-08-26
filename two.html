@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPI-KID Questionnaire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<script type="module">
+  // Import Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvqVRiUSX185tIX5SvJJiugh5C492buRY",
+    authDomain: "epikid-4a22c.firebaseapp.com",
+    projectId: "epikid-4a22c",
+    storageBucket: "epikid-4a22c.firebasestorage.app",
+    messagingSenderId: "243288986692",
+    appId: "1:243288986692:web:491fa390391e8e18319811",
+    measurementId: "G-ZMRYVRL6CF"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Check if user is signed in
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      // Not signed in ¨ redirect to login page
+      window.location.href = "index.html";  
+    }
+  });
+
+  // Optional: logout button
+  function logout() {
+    signOut(auth).then(() => {
+      window.location.href = "index.html";
+    });
+  }
+  window.logout = logout; // so you can call logout() from a button
+</script>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>EPI-KID Questionnaire (Financial Burden of Pediatric Epilepsy)</h1>
+        <p>A comprehensive tool to assess the economic impact of pediatric epilepsy</p>
+    </header>
+    <!-- Form Section -->
+    <div class="form-container">
+        <form id="page2-form">
+            <h2>Domain 2: DIRECT COSTS (Medical/Health System-Related)</h2>
+            
+            <!-- Section A -->
+            <h3>(A). Consultancy Costs</h3>
+            <label for="No_of_consultations">
+                1. How many times have you consulted a neurologist/pediatrician/ancillary healthcare provider for your childâ€™s epilepsy in the past 6 months?
+            </label>
+            <input type="number" id="No_of_consultations" name="No_of_consultations" required>
+         
+            <label for="Cost_per_consultation">
+                2. What is the average cost of a single consultation?
+            </label>
+            <input type="text" id="Cost_per_consultation" name="Cost_per_consultation" required>
+
+            <!-- Section B -->
+            <h3>(B). Telehealth/Telemedicine Costs</h3>
+            <label for="Telehealth_visit">1. Have you ever used telemedicine for your childâ€™s consultancy?</label>
+            <select id="Telehealth_visit" name="Telehealth_visit" required>
+                <option value="" hidden>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label for="telehealth_count">
+                2. If yes, how often have you used telemedicine in the last 6 months?
+            </label>
+            <input type="number" id="telehealth_count" name="telehealth_count">
+
+            <label for="telehealth_appointment_cost">
+                3. How much have you been charged for the telehealth per appointment?
+            </label>
+            <input type="number" id="telehealth_appointment_cost" name="telehealth_appointment_cost">
+
+            <label for="Purchased_new_technology">
+                4. Have you purchased any new technology or upgraded services for telemedicine visits? 
+            </label>
+            <select id="Purchased_new_technology" name="Purchased_new_technology" required>
+                <option value="" hidden>Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label for="telehealth_cost">
+                5. If â€œYes,â€? how much have you spent on upgrading?
+            </label>
+            <input type="number" id="telehealth_cost" name="telehealth_cost">
+
+        <h3>(C). Diagnostic cost</h3>
+        <label>1. The estimated cost incurred in the last 6 months for diagnostic procedures to establish the definite diagnosis of epilepsy</label><br>
+        <input type="number" name="Diagnostic_cost"><br><br>
+        </select>
+    
+        <h3>(D). Medication, medical device/implant, & dietary cost</h3>
+        <h4>a. Prescribed medication </h4>
+        <label> 1. Give approximate total cost incurred in the last 6 months on medication after diagnosis of epilepsy</label><br>
+        <input type="number" name="medication_cost"><br><br>
+        </select>
+        
+        <h4>b. Implant or device-mediated therapy</h4>
+        <label>1. Have your child undergone any of the following implant or therapy:</label><br>
+         *Vagus nerve stimulation (VNS)<br> 
+         *Responsive neurostimulation (RNS)<br> 
+         *Deep brain stimulation (DBS)<br> 
+         *Epicranial Application of Stimulation Electrodes for Epilepsy (EASEE)<br><br>
+        <select name="Implant">
+        <option>Yes</option>
+        <option>No</option>
+        </select>
+
+        <label>2. If â€œYesâ€?, Give approximate total cost related to device/implant</label><br>
+        <input type="number" name="cost_of_implant"><br><br>
+        </select>
+
+       <h4>c. Dietary therapy </h4>
+       <label>1. Have you been prescribed the ketogenic diet as part of your treatment for epilepsy?</label><br>
+        <select name="ketogenic_diet">
+        <option value="" hidden>Select</option>
+        <option>Yes</option>
+        <option>No</option>
+        </select>
+
+        <label> If â€œYesâ€?, then proceed with the questions below:</label><br>
+        <label>2. How much are your expenses related to availing the ketogenic diet?</label><br>
+        <input type="number" name="ketogenic_diet_cost"><br><br>
+        </select>
+
+        <label>3. How much do you spend on routine laboratory tests and monitoring required during ketogenic diet therapy (e.g., blood tests, urine ketone tests)?</label><br>
+        <input type="number" name="laboratory_tests_cost"><br><br>
+        </select>
+
+        <h3>(E). Hospitalization (inpatient) costs related to the surgery</h3>
+       <label><p>1. Please tick which surgical procedure is intervened:</p><label>
+        <label><input type="checkbox" name="surgical_procedure" value="Corpus callosotomy">Corpus callosotomy<label>
+            <input type="checkbox" name="surgical_procedure" value="Hemispherectomy">
+            Hemispherectomy
+        <label>
+            <input type="checkbox" name="surgical_procedure" value="Resective Surgery">
+            Resective Surgery
+        <label>
+            <input type="checkbox" name="surgical_procedure" value="Other">
+            Any other, please mention:
+        </label>
+        <input type="text" name="other_procedure" placeholder="Please specify"><br>
+        </select>
+
+        <label>2. Give approximate total cost related to surgical procedure</label><br>
+        <input type="number" name="cost_of_surgery"><br><br>
+        </select>
+
+        <label>3. Approximate the initial evaluation and diagnostic tests cost for surgery</label><br>
+        <input type="number" name="diagnostic_tests_cost_for_surgery"><br><br>
+        </select>
+
+        <label>4. Give approximate total cost related to hospitalization</label><br>
+        <input type="number" name="hospitalization_cost"><br><br>
+        </select>
+
+        <label>5. Out-of-pocket expenses reimbursed (if any):</label><br>
+        <input type="number" name="expenses_reimbursed"><br><br>
+        </select>
+
+    <h3>(F). Hospitalization (inpatient) costs unrelated to the surgery</h3>
+      <label>During the past 6 months, did your child require hospitalization for conditions or complications related to epilepsy (excluding surgeries)? If yes, please provide the following details:</label><br><br>
+     <label>1. Number of hospitalizations:</label><br>
+        <input type="number" name="Number_of_visit"><br><br>
+        </select>
+     <label>2. Total medical expenses per hospitalization (approximate):</label><br>
+        <input type="number" name="expenses_per_hospitalization"><br><br>
+        </select>
+
+    <label>3. Out-of-pocket expenses reimbursed (if any):</label><br>
+        <input type="number" name="expense_reimbursed"><br><br>
+        </select> 
+
+    <label>4. Insurance coverage (if applicable)</label><br>
+        <select name="insurance_coverage">
+        <option value="" selected hidden></option>
+        <option>Yes</option>
+        <option>No</option>
+        </select>
+
+        <br><br>
+        <button type="button" id="prev-btn">Previous</button>
+        <br><br>
+        <button type="button" id="next-btn">Continue</button>
+        
+    </form>
+</div>
+
+    <script>
+        // Save page 2 data and navigate to next page
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const form = document.getElementById('page2-form');
+
+            // Validate form
+            if (form.checkValidity()) {
+                const formData = Object.fromEntries(new FormData(form).entries());
+                localStorage.setItem('page2Data', JSON.stringify(formData));
+                window.location.href = 'three.html'; // Redirect to next page
+            } else {
+                alert("Please fill out all required fields before continuing.");
+                form.reportValidity();
+            }
+        });
+
+         document.getElementById('prev-btn').addEventListener('click', () => {
+                window.location.href = 'homepages.html'; // Redirect to next page
+        });
+
+              // ? Restore saved data when page loads
+    window.addEventListener("DOMContentLoaded", () => {
+        const savedData = localStorage.getItem("page2Data");
+        if (savedData) {
+            const formData = JSON.parse(savedData);
+            Object.keys(formData).forEach(key => {
+                const field = document.querySelector(`[name="${key}"]`);
+                if (field) {
+                    field.value = formData[key];
+                }
+            });
+        }
+    });
+    </script> 
+</body>
+</html>
+      
+    
+
+  
