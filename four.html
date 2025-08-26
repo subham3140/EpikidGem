@@ -6,7 +6,7 @@
     <title>EPI-KID Questionnaire</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<script type="module">
+<!-- <script type="module">
   // Import Firebase
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
@@ -40,13 +40,14 @@
     });
   }
   window.logout = logout; // so you can call logout() from a button
-</script>
+</script> -->
 
 <body>
     <header>
         <h1>EPI-KID Questionnaire (Financial Burden of Pediatric Epilepsy)</h1>
         <p>A comprehensive tool to assess the economic impact of pediatric epilepsy</p>
     </header>
+      <button onclick="logout()">Logout</button>
     <div class="form-container">
         <form id="page4-form">
             <h2>DOMAIN 4: INDIRECT COSTS (Caregiving, Productivity Losses, Absenteeism)</h2>
